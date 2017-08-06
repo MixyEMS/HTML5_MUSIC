@@ -49,7 +49,7 @@ header {
     left: 0;
     width: 100%;
     z-index: 20;
-    overflow: hidden;
+    overflow-x: hidden;
     top: 12rem;
     transition: all 0.5s;
     transition-timing-function: ease-in;
@@ -62,7 +62,7 @@ header {
     top: 12rem;
     background-color: transparent;
     z-index: 20;
-    overflow-y: hidden;
+    overflow-y: scroll;
 }
 
 .left.open {
@@ -119,6 +119,11 @@ li {
     background-color: transparent;
     opacity: 0.2;
     width: 0.3rem;
+      position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 50;
+    display: none;
 }
 
 .left::-webkit-scrollbar-thumb {
@@ -135,6 +140,7 @@ input[type=range] {
     height: 0.1rem;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-user-modify: read-write-plaintext-only;
+
 }
 
 input[type=range]::-webkit-slider-thumb {
@@ -170,7 +176,7 @@ input[type=range] ::-webkit-track {
 
 
 .left .more {
-    position: absolute;
+    position: fixed;
     font-size: 0.3rem;
     text-decoration: underline;
     right: 0.5rem;

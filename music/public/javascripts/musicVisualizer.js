@@ -4,12 +4,12 @@ function MusicVisualizer(obj) {
     this.count = 0;
 
 
-    this.analyser = MusicVisualizer.ac.createAnalyser();
+    this.analyser = this.ac.createAnalyser();
     this.size = obj.size;
     this.analyser.fftSize =  this.size*2;
 
-    this.gainNode = MusicVisualizer.ac[MusicVisualizer.ac.createGain ? "createGain" : "createGainNode"]();
-    this.gainNode.connect(MusicVisualizer.ac.destination);
+    this.gainNode = this.ac[this.ac.createGain ? "createGain" : "createGainNode"]();
+    this.gainNode.connect(this.ac.destination);
 
     this.analyser.connect(this.gainNode);
 
@@ -19,7 +19,7 @@ function MusicVisualizer(obj) {
 
 }
 
-MusicVisualizer.ac = new(window.AudioContext || window.webkitAudioContext)();
+MusicVisualizer.prototype.ac = new(window.AudioContext || window.webkitAudioContext)();
 
 MusicVisualizer.prototype.load = function(url,fun) {
     this.xhr.abort();
@@ -38,9 +38,9 @@ MusicVisualizer.prototype.play = function(url) {
     this.source && this.stop();
     this.load(url, function(arrbuffer) {
         if (n != self.count) return;
-        MusicVisualizer.ac.decodeAudioData(arrbuffer, function(buffer) {
+        self.ac.decodeAudioData(arrbuffer, function(buffer) {
             if (n != self.count) return;
-            var bs = MusicVisualizer.ac.createBufferSource();
+            var bs = self.ac.createBufferSource();
             bs.buffer = buffer;
             bs.connect(self.analyser);
             self.source = bs;

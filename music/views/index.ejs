@@ -1,28 +1,82 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- 删除苹果默认的工具栏和菜单栏 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <!-- 设置苹果工具栏颜色 -->
+    <meta name="format-detection" content="telphone=no, email=no" />
+    <!-- 忽略页面中的数字识别为电话，忽略email识别 -->
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <!-- 适应移动端end -->
     <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-   <header>
-         <h1><%= title %></h1>
-         <p>
-            Volume <input id="volume" type="range" min="0" max="100" value="60">
-         </p>
-   </header>
-   <div class="left">
-    <ul id="list">
-      <% music.forEach(function(name){ %>
-      <li title="<%= name %>"><%= name %></li>
-      <% }) %>
-    </ul>
-   </div>
-   <div class="right">
-      <div id="box"></div>
-   </div>
+</head>
+
+<body>
+    <header id="header">
+        <h1><%= title %></h1>
+        <div id="player">
+            <div class="info">
+                <span class="name">play..</span>
+                <span class="time"></span>
+            </div>
+            <div class="control">
+                <span class="prev">&#9668&#9668</span>
+                <span class="stateC" >&#921&#921</span>
+                <span class="next">&#9658&#9658</span>
+            </div>
+            <div class="volume">
+                Volume
+                <input id="volume" type="range" min="0" max="100" value="60">
+            </div>
+        </div>
+    </header>
+    <div class="left close">
+        <span class="more">More</span>
+        <ul id="list">
+            <% music.forEach(function(name){ %>
+                <li title="<%= name %>">
+                    <%= name %>
+                </li>
+                <% }) %>
+        </ul>
+    </div>
+    <div class="right">
+        <div id="box"></div>
+    </div>
     <script src="/javascripts/musicVisualizer.js"></script>
-   <script src="/javascripts/index.js"></script>
-  </body>
+    <script src="/javascripts/index.js"></script>
+</body>
+
 </html>

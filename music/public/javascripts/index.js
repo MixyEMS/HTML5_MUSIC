@@ -17,12 +17,14 @@ box.appendChild(canvas);
 var size = 64;
 var line;
 var Dots = [];
-var drawType = "column";//circle column
+var drawType = "circle";//circle column
 
 var musicVisualizer = new MusicVisualizer({
 	size:size,
 	draw:draw
 });
+
+var curMusic = 0;
 
 function random(min,max){
 	 return Math.round(Math.random()*(max-min)+min);
@@ -100,6 +102,10 @@ function draw(arr){
 
 }
 
+function setInfo(info){
+     $("#player .info .name")[0].innerHTML=info.name;
+}
+
 window.onresize = resize;
 
 $("#volume")[0].onchange = function(){
@@ -113,11 +119,61 @@ for(var i =0;i<lis.length ;i++){
 	 lis[i].onclick = function(){
 	 	 for(var j =0 ; j<lis.length;j++){
 	 	 	lis[j].className = "";
+	 	 	if(lis[j]==this){
+	 	 		curMusic = j;
+	 	 	}
 	 	 }
 	 	 this.className="selected";
-	 	musicVisualizer.play("/media/"+this.title);
+	 	 setInfo({
+	 	 	name:this.title.slice(0,this.title.length-4),
+	 	 });
+	   	musicVisualizer.play("/media/"+this.title);
 	 }
 }
+
+ $("#player .control .prev")[0].onclick = function(){
+       if(curMusic>=1){
+       	  curMusic--;
+       }else{
+       	  curMusic =lis.length-1;
+       }
+
+       lis[curMusic].click();
+ }
+
+ $("#player .control .next")[0].onclick = function(){
+       if(curMusic < lis.length-1){
+       	  curMusic++;
+       }else{
+       	  curMusic =0;
+       }
+
+       lis[curMusic].click();
+ }
+
+$("#player .control .stateC")[0].onclick = function(){
+	if(musicVisualizer.ac.state =="running"){
+		musicVisualizer.ac.suspend();
+		this.innerHTML="&#9658";
+	}else{
+		musicVisualizer.ac.resume();
+		this.innerHTML="&#921&#921";
+	}	
+ }
+
+$(".left .more")[0].onclick = function(){
+	var s = this.innerHTML;
+	if(s == "More"){
+		$(".left")[0].className = "left open";
+		this.innerHTML="Return";
+		$("#header")[0].className = "hide";
+    }else{
+    	$(".left")[0].className = "left close";
+		this.innerHTML="More";
+		$("#header")[0].className = "";
+    }
+ }
+
 
 resize();
 
